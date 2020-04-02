@@ -32,9 +32,7 @@ import org.jitsi.service.neomedia.format.*;
  *
  * @author Lyubomir Marinov
  */
-public abstract class AbstractMediaDevice
-    implements MediaDevice
-{
+public abstract class AbstractMediaDevice implements MediaDevice {
     /**
      * Connects to a specific <tt>CaptureDevice</tt> given in the form of a
      * <tt>DataSource</tt>. Explicitly defined in order to allow extenders to
@@ -42,19 +40,13 @@ public abstract class AbstractMediaDevice
      *
      * @param captureDevice the <tt>CaptureDevice</tt> to be connected to
      * @throws IOException if anything wrong happens while connecting to the
-     * specified <tt>captureDevice</tt>
+     *                     specified <tt>captureDevice</tt>
      */
-    public void connect(DataSource captureDevice)
-        throws IOException
-    {
-        if (captureDevice == null)
-            throw new NullPointerException("captureDevice");
-        try
-        {
+    public void connect(DataSource captureDevice) throws IOException {
+        if (captureDevice == null) throw new NullPointerException("captureDevice");
+        try {
             captureDevice.connect();
-        }
-        catch (NullPointerException npe)
-        {
+        } catch (NullPointerException npe) {
             /*
              * The old media says it happens when the operating system does not
              * support the operation.
@@ -82,29 +74,24 @@ public abstract class AbstractMediaDevice
      * overriding and returning <tt>null</tt>.
      *
      * @param dataSource the <tt>DataSource</tt> which is to be played back by
-     * the new <tt>Processor</tt> instance
+     *                   the new <tt>Processor</tt> instance
      * @return a new <tt>Processor</tt> instance which is to be used to play
      * back the media provided by the specified <tt>dataSource</tt> or
      * <tt>null</tt> if the specified <tt>dataSource</tt> is to not be played
      * back
      * @throws Exception if an exception is thrown by
-     * {@link DataSource#connect()},
-     * {@link Manager#createProcessor(DataSource)}, or
-     * {@link DataSource#disconnect()}
+     *                   {@link DataSource#connect()},
+     *                   {@link Manager#createProcessor(DataSource)}, or
+     *                   {@link DataSource#disconnect()}
      */
-    protected Processor createPlayer(DataSource dataSource)
-        throws Exception
-    {
+    protected Processor createPlayer(DataSource dataSource) throws Exception {
         Processor player = null;
 
         // A Player is documented to be created on a connected DataSource.
         dataSource.connect();
-        try
-        {
+        try {
             player = Manager.createProcessor(dataSource);
-        }
-        finally
-        {
+        } finally {
             if (player == null)
                 dataSource.disconnect();
         }
@@ -124,8 +111,7 @@ public abstract class AbstractMediaDevice
      * <tt>Renderer</tt> is to be chosen irrespective of this
      * <tt>MediaDevice</tt>
      */
-    protected Renderer createRenderer()
-    {
+    protected Renderer createRenderer() {
         return null;
     }
 
@@ -136,14 +122,14 @@ public abstract class AbstractMediaDevice
      * @return a new <tt>MediaDeviceSession</tt> instance which is to represent
      * the use of this <tt>MediaDevice</tt> by a <tt>MediaStream</tt>
      */
-    public MediaDeviceSession createSession()
-    {
-        switch (getMediaType())
-        {
-        case VIDEO:
-            return new VideoMediaDeviceSession(this);
-        default:
-            return new AudioMediaDeviceSession(this);
+    public MediaDeviceSession createSession() {
+        switch (getMediaType()) {
+
+            case VIDEO:
+                return new VideoMediaDeviceSession(this);
+
+            default:
+                return new AudioMediaDeviceSession(this);
         }
     }
 
@@ -155,8 +141,7 @@ public abstract class AbstractMediaDevice
      * @return a <tt>List</tt> containing the <tt>CSRC_AUDIO_LEVEL_URN</tt>
      * extension descriptor.
      */
-    public List<RTPExtension> getSupportedExtensions()
-    {
+    public List<RTPExtension> getSupportedExtensions() {
         return null;
     }
 
@@ -167,8 +152,7 @@ public abstract class AbstractMediaDevice
      * @return the list of <tt>MediaFormat</tt>s supported by this device
      * @see MediaDevice#getSupportedFormats()
      */
-    public List<MediaFormat> getSupportedFormats()
-    {
+    public List<MediaFormat> getSupportedFormats() {
         return getSupportedFormats(null, null);
     }
 }

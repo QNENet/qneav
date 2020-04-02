@@ -22,13 +22,10 @@ import java.net.*;
  * <tt>StreamConnector</tt> instance.
  *
  * @param <T> the very type of the <tt>StreamConnector</tt> wrapped by
- * <tt>StreamConnectorDelegate</tt>
- *
+ *            <tt>StreamConnectorDelegate</tt>
  * @author Lyubomir Marinov
  */
-public class StreamConnectorDelegate<T extends StreamConnector>
-    implements StreamConnector
-{
+public class StreamConnectorDelegate<T extends StreamConnector> implements StreamConnector {
     /**
      * The <tt>StreamConnector</tt> wrapped by this instance.
      */
@@ -38,11 +35,9 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * Initializes a new <tt>StreamConnectorDelegate</tt> which is to wrap a
      * specific <tt>StreamConnector</tt>.
      *
-     * @param streamConnector the <tt>StreamConnector</tt> to be wrapped by the
-     * new instance
+     * @param streamConnector the <tt>StreamConnector</tt> to be wrapped by the new instance
      */
-    public StreamConnectorDelegate(T streamConnector)
-    {
+    public StreamConnectorDelegate(T streamConnector) {
         if (streamConnector == null)
             throw new NullPointerException("streamConnector");
 
@@ -56,8 +51,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * by this instance.
      */
     @Override
-    public void close()
-    {
+    public void close() {
         streamConnector.close();
     }
 
@@ -65,8 +59,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public DatagramSocket getControlSocket()
-    {
+    public DatagramSocket getControlSocket() {
         return streamConnector.getControlSocket();
     }
 
@@ -74,8 +67,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public Socket getControlTCPSocket()
-    {
+    public Socket getControlTCPSocket() {
         return streamConnector.getControlTCPSocket();
     }
 
@@ -83,8 +75,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public DatagramSocket getDataSocket()
-    {
+    public DatagramSocket getDataSocket() {
         return streamConnector.getDataSocket();
     }
 
@@ -92,8 +83,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public Socket getDataTCPSocket()
-    {
+    public Socket getDataTCPSocket() {
         return streamConnector.getDataTCPSocket();
     }
 
@@ -101,8 +91,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public Protocol getProtocol()
-    {
+    public Protocol getProtocol() {
         return streamConnector.getProtocol();
     }
 
@@ -110,8 +99,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public void started()
-    {
+    public void started() {
         streamConnector.started();
     }
 
@@ -119,8 +107,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public void stopped()
-    {
+    public void stopped() {
         streamConnector.stopped();
     }
 
@@ -128,8 +115,7 @@ public class StreamConnectorDelegate<T extends StreamConnector>
      * {@inheritDoc}
      */
     @Override
-    public boolean isRtcpmux()
-    {
+    public boolean isRtcpmux() {
         return streamConnector.isRtcpmux();
     }
 }

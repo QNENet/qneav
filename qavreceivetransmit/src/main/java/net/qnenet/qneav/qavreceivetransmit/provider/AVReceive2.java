@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -87,7 +88,24 @@ public class AVReceive2 {
 
             MediaDevice device = mediaService.getDefaultDevice(mediaType, MediaUseCase.CALL);
 
-            MediaStream mediaStream = mediaService.createMediaStream(device);
+//            int width = 0;
+//            int height = 0;
+//            int x = 0;
+//            int y = 0;
+//            MediaDevice device = mediaService.getMediaDeviceForPartialDesktopStreaming(width, height, x, y);
+
+//            MediaDevice mixerDevice = null;
+//            MediaDevice device = mediaService.createMixer(mixerDevice);
+
+//            List<ScreenDevice> screenDevices = mediaService.getAvailableScreenDevices();
+//
+//            List<MediaDevice> videoMediaDevices = mediaService.getDevices(MediaType.VIDEO, MediaUseCase.CALL);
+
+
+
+
+            MediaDevice mediaStreamDevice = null;
+            MediaStream mediaStream = mediaService.createMediaStream(mediaStreamDevice);
 
             mediaStream.setDirection(MediaDirection.RECVONLY);
 //            mediaStream.setDirection(MediaDirection.SENDONLY);

@@ -11,6 +11,7 @@
     <modules>
         <module>libjitsi</module>
         <module>qavreceivetransmit</module>
+        <module>qavailablemediadevices</module>
     </modules>
 
     <name>QNEAV</name>

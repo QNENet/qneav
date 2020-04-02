@@ -33,8 +33,7 @@ import org.jitsi.utils.*;
  * @author Emil Ivov
  * @author Lyubomir Marinov
  */
-public interface MediaService
-{
+public interface MediaService {
     /**
      * The name of the property of <tt>MediaService</tt> the value of which
      * corresponds to the value returned by
@@ -50,21 +49,21 @@ public interface MediaService
      * which depend on ffmpeg (currently mp3, h264 and amrwb) will be enabled.
      */
     public static final String ENABLE_FFMPEG_CODECS_PNAME
-        = MediaService.class.getName() + ".ENABLE_FFMPEG_CODECS";
+            = MediaService.class.getName() + ".ENABLE_FFMPEG_CODECS";
 
     /**
      * The name of the property which controls whether the h264 formats
      * will be registered in libjitsi even if the ffmpeg codec is missing.
      */
     public static final String ENABLE_H264_FORMAT_PNAME
-        = MediaService.class.getName() + ".ENABLE_H264_FORMAT";
+            = MediaService.class.getName() + ".ENABLE_H264_FORMAT";
 
     /**
      * Adds a <tt>PropertyChangeListener</tt> to be notified about changes in
      * the values of the properties of this instance.
      *
      * @param listener the <tt>PropertyChangeListener</tt> to be notified about
-     * changes in the values of the properties of this instance
+     *                 changes in the values of the properties of this instance
      */
     public void addPropertyChangeListener(PropertyChangeListener listener);
 
@@ -75,7 +74,7 @@ public interface MediaService
      * interested in notifications from a <tt>Recorder</tt>.
      *
      * @param listener the new <tt>Recorder.Listener</tt> to be added to the
-     * list of listeners interested in notifications from <tt>Recorder</tt>s.
+     *                 list of listeners interested in notifications from <tt>Recorder</tt>s.
      */
     public void addRecorderListener(Recorder.Listener listener);
 
@@ -94,7 +93,7 @@ public interface MediaService
      * enable the new instance to send and receive media.
      *
      * @param device the <tt>MediaDevice</tt> to be used by the new instance for
-     * capture and playback of media
+     *               capture and playback of media
      * @return a newly-created <tt>MediaStream</tt> which will use the specified
      * <tt>device</tt> for capture and playback of media
      */
@@ -108,7 +107,7 @@ public interface MediaService
      * <tt>mediaType</tt>.
      *
      * @param mediaType the <tt>MediaType</tt> of the new instance to be
-     * initialized
+     *                  initialized
      * @return a new <tt>MediaStream</tt> instance of the specified
      * <tt>mediaType</tt>
      */
@@ -120,17 +119,14 @@ public interface MediaService
      * via the specified <tt>StreamConnector</tt>.
      *
      * @param connector the <tt>StreamConnector</tt> the stream should use for
-     * sending and receiving media or <tt>null</tt> if the stream is to not have
-     * a <tt>StreamConnector</tt> configured at initialization time and a
-     * <tt>StreamConnector</tt> is to be specified later on
-     * @param device the device to be used for both capture and playback of
-     * media exchanged via the specified <tt>StreamConnector</tt>
-     *
+     *                  sending and receiving media or <tt>null</tt> if the stream is to not have
+     *                  a <tt>StreamConnector</tt> configured at initialization time and a
+     *                  <tt>StreamConnector</tt> is to be specified later on
+     * @param device    the device to be used for both capture and playback of
+     *                  media exchanged via the specified <tt>StreamConnector</tt>
      * @return the newly created <tt>MediaStream</tt>.
      */
-    public MediaStream createMediaStream(
-            StreamConnector connector,
-            MediaDevice device);
+    public MediaStream createMediaStream(StreamConnector connector, MediaDevice device);
 
     /**
      * Initializes a new <tt>MediaStream</tt> instance which is to exchange
@@ -138,38 +134,32 @@ public interface MediaService
      * <tt>StreamConnector</tt>.
      *
      * @param connector the <tt>StreamConnector</tt> the stream should use for
-     * sending and receiving media or <tt>null</tt> if the stream is to not have
-     * a <tt>StreamConnector</tt> configured at initialization time and a
-     * <tt>StreamConnector</tt> is to be specified later on
+     *                  sending and receiving media or <tt>null</tt> if the stream is to not have
+     *                  a <tt>StreamConnector</tt> configured at initialization time and a
+     *                  <tt>StreamConnector</tt> is to be specified later on
      * @param mediaType the <tt>MediaType</tt> of the media to be exchanged by
-     * the new instance via the specified <tt>connector</tt>
+     *                  the new instance via the specified <tt>connector</tt>
      * @return a new <tt>MediaStream</tt> instance which is to exchange media of
      * the specified <tt>mediaType</tt> via the specified <tt>connector</tt>
      */
-    public MediaStream createMediaStream(
-            StreamConnector connector,
-            MediaType mediaType);
+    public MediaStream createMediaStream(StreamConnector connector, MediaType mediaType);
 
     /**
      * Creates a <tt>MediaStream</tt> that will be using the specified
      * <tt>MediaDevice</tt> for both capture and playback of media exchanged
      * via the specified <tt>StreamConnector</tt>.
      *
-     * @param connector the <tt>StreamConnector</tt> the stream should use for
-     * sending and receiving media or <tt>null</tt> if the stream is to not have
-     * a <tt>StreamConnector</tt> configured at initialization time and a
-     * <tt>StreamConnector</tt> is to be specified later on
-     * @param device the device to be used for both capture and playback of
-     * media exchanged via the specified <tt>StreamConnector</tt>
+     * @param connector   the <tt>StreamConnector</tt> the stream should use for
+     *                    sending and receiving media or <tt>null</tt> if the stream is to not have
+     *                    a <tt>StreamConnector</tt> configured at initialization time and a
+     *                    <tt>StreamConnector</tt> is to be specified later on
+     * @param device      the device to be used for both capture and playback of
+     *                    media exchanged via the specified <tt>StreamConnector</tt>
      * @param srtpControl a control which is already created, used to control
-     * the ZRTP operations.
-     *
+     *                    the ZRTP operations.
      * @return the newly created <tt>MediaStream</tt>.
      */
-    public MediaStream createMediaStream(
-            StreamConnector connector,
-            MediaDevice device,
-            SrtpControl srtpControl);
+    public MediaStream createMediaStream(StreamConnector connector, MediaDevice device, SrtpControl srtpControl);
 
     /**
      * Initializes a new <tt>MediaStream</tt> instance which is to exchange
@@ -177,14 +167,14 @@ public interface MediaService
      * <tt>StreamConnector</tt>. The security of the media exchange is to be
      * controlled by a specific <tt>SrtpControl</tt>.
      *
-     * @param connector the <tt>StreamConnector</tt> the stream should use for
-     * sending and receiving media or <tt>null</tt> if the stream is to not have
-     * a <tt>StreamConnector</tt> configured at initialization time and a
-     * <tt>StreamConnector</tt> is to be specified later on
-     * @param mediaType the <tt>MediaType</tt> of the media to be exchanged by
-     * the new instance via the specified <tt>connector</tt>
+     * @param connector   the <tt>StreamConnector</tt> the stream should use for
+     *                    sending and receiving media or <tt>null</tt> if the stream is to not have
+     *                    a <tt>StreamConnector</tt> configured at initialization time and a
+     *                    <tt>StreamConnector</tt> is to be specified later on
+     * @param mediaType   the <tt>MediaType</tt> of the media to be exchanged by
+     *                    the new instance via the specified <tt>connector</tt>
      * @param srtpControl the <tt>SrtpControl</tt> to control the security of
-     * the media exchange
+     *                    the media exchange
      * @return a new <tt>MediaStream</tt> instance which is to exchange media of
      * the specified <tt>mediaType</tt> via the specified <tt>connector</tt>
      */
@@ -203,7 +193,7 @@ public interface MediaService
      * the <tt>MediaType</tt> of the specified <tt>device</tt>.
      *
      * @param device the <tt>MediaDevice</tt> which is to be used by the
-     * returned <tt>MediaDevice</tt> to actually capture and play back media
+     *               returned <tt>MediaDevice</tt> to actually capture and play back media
      * @return a new <tt>MediaDevice</tt> instance which uses <tt>device</tt> to
      * capture and play back media and performs mixing of the captured media and
      * the media played back by any other users of the returned
@@ -217,7 +207,7 @@ public interface MediaService
      * <tt>MediaDevice</tt>.
      *
      * @param device the <tt>MediaDevice</tt> which is used for media capture
-     * and playback by the call to be recorded
+     *               and playback by the call to be recorded
      * @return a new <tt>Recorder</tt> instance that can be used to record a
      * call which captures and plays back media using the specified
      * <tt>MediaDevice</tt>
@@ -227,8 +217,9 @@ public interface MediaService
     /**
      * Creates a new <tt>Recorder</tt> instance that can be used to record media
      * from a specific <tt>RTPTranslator</tt>.
+     *
      * @param translator the <tt>RTPTranslator</tt> for which to create a
-     * <tt>Recorder</tt>
+     *                   <tt>Recorder</tt>
      * @return a new <tt>Recorder</tt> instance that can be used to record media
      * from a specific <tt>RTPTranslator</tt>.
      */
@@ -272,16 +263,13 @@ public interface MediaService
      * <tt>type</tt>.
      *
      * @param mediaType a <tt>MediaType</tt> value indicating the kind of device
-     * that we are trying to obtain.
-     * @param useCase <tt>MediaUseCase</tt> value indicating for the use-case of
-     * device that we are trying to obtain.
-     *
+     *                  that we are trying to obtain.
+     * @param useCase   <tt>MediaUseCase</tt> value indicating for the use-case of
+     *                  device that we are trying to obtain.
      * @return the currently default <tt>MediaDevice</tt> for the specified
      * <tt>MediaType</tt>, or <tt>null</tt> if no such device exists.
      */
-    public MediaDevice getDefaultDevice(
-            MediaType mediaType,
-            MediaUseCase useCase);
+    public MediaDevice getDefaultDevice(MediaType mediaType, MediaUseCase useCase);
 
     /**
      * Get default <tt>ScreenDevice</tt> device.
@@ -295,15 +283,14 @@ public interface MediaService
      * implementation and handling the specified <tt>MediaType</tt>.
      *
      * @param mediaType the media type (i.e. AUDIO or VIDEO) that we'd like
-     * to obtain the device list for.
-     * @param useCase <tt>MediaUseCase</tt> value indicating for the use-case of
-     * device that we are trying to obtain.
-     *
+     *                  to obtain the device list for.
+     * @param useCase   <tt>MediaUseCase</tt> value indicating for the use-case of
+     *                  device that we are trying to obtain.
      * @return the list of <tt>MediaDevice</tt>s currently known to handle the
      * specified <tt>mediaType</tt>.
      */
     public List<MediaDevice> getDevices(MediaType mediaType,
-            MediaUseCase useCase);
+                                        MediaUseCase useCase);
 
     /**
      * Returns a {@link Map} that binds indicates whatever preferences the
@@ -343,10 +330,10 @@ public interface MediaService
     /**
      * Get a <tt>MediaDevice</tt> for a part of desktop streaming/sharing.
      *
-     * @param width width of the part
+     * @param width  width of the part
      * @param height height of the part
-     * @param x origin of the x coordinate (relative to the full desktop)
-     * @param y origin of the y coordinate (relative to the full desktop)
+     * @param x      origin of the x coordinate (relative to the full desktop)
+     * @param y      origin of the y coordinate (relative to the full desktop)
      * @return <tt>MediaDevice</tt> representing the part of desktop or null
      * if problem
      */
@@ -373,6 +360,7 @@ public interface MediaService
 
     /**
      * Gives access to currently registered <tt>Recorder.Listener</tt>s.
+     *
      * @return currently registered <tt>Recorder.Listener</tt>s.
      */
     public Iterator<Recorder.Listener> getRecorderListeners();
@@ -381,8 +369,8 @@ public interface MediaService
      * Creates a preview component for the specified device(video device) used
      * to show video preview from it.
      *
-     * @param device the video device
-     * @param preferredWidth the width we prefer for the component
+     * @param device          the video device
+     * @param preferredWidth  the width we prefer for the component
      * @param preferredHeight the height we prefer for the component
      * @return the preview component.
      */
@@ -404,7 +392,7 @@ public interface MediaService
      * changes in the values of the properties of this instance.
      *
      * @param listener the <tt>PropertyChangeListener</tt> to no longer be
-     * notified about changes in the values of the properties of this instance
+     *                 notified about changes in the values of the properties of this instance
      */
     public void removePropertyChangeListener(PropertyChangeListener listener);
 
@@ -413,7 +401,7 @@ public interface MediaService
      * interested in notifications from <tt>Recorder</tt>s.
      *
      * @param listener the existing <tt>Listener</tt> to be removed from the
-     * list of listeners interested in notifications from <tt>Recorder</tt>s
+     *                 list of listeners interested in notifications from <tt>Recorder</tt>s
      */
     public void removeRecorderListener(Recorder.Listener listener);
 
@@ -421,6 +409,7 @@ public interface MediaService
      * Returns the value which will be used for the canonical end-point
      * identifier (CNAME) in RTCP packets sent by this running instance of
      * libjitsi.
+     *
      * @return the value which will be used for the canonical end-point
      * identifier (CNAME) in RTCP packets sent by this running instance of
      * libjitsi.
@@ -430,12 +419,13 @@ public interface MediaService
     /**
      * Creates a <tt>RecorderEventHandler</tt> instance that saves received
      * events in JSON format.
+     *
      * @param filename the filename into which the created
-     * <tt>RecorderEventHandler</tt> will save received events.
+     *                 <tt>RecorderEventHandler</tt> will save received events.
      * @return a <tt>RecorderEventHandler</tt> instance that saves received
      * events in JSON format.
      * @throws IOException if a <tt>RecorderEventHandler</tt> could not be
-     * created for <tt>filename</tt>.
+     *                     created for <tt>filename</tt>.
      */
     public RecorderEventHandler createRecorderEventHandlerJson(String filename)
             throws IOException;
