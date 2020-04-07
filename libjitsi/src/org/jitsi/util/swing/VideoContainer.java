@@ -31,8 +31,7 @@ import javax.swing.*;
  * @author Yana Stamcheva
  */
 public class VideoContainer
-    extends TransparentPanel
-{
+        extends TransparentPanel {
     /**
      * Serial version UID.
      */
@@ -64,13 +63,11 @@ public class VideoContainer
     private final Component noVideoComponent;
 
     private final PropertyChangeListener propertyChangeListener
-        = new PropertyChangeListener()
-        {
-            public void propertyChange(PropertyChangeEvent ev)
-            {
-                VideoContainer.this.propertyChange(ev);
-            }
-        };
+            = new PropertyChangeListener() {
+        public void propertyChange(PropertyChangeEvent ev) {
+            VideoContainer.this.propertyChange(ev);
+        }
+    };
 
     private final Object syncRoot = new Object();
 
@@ -87,12 +84,11 @@ public class VideoContainer
      * <tt>Component</tt> to be displayed when no remote video is available.
      *
      * @param noVideoComponent the component to be displayed when no remote
-     * video is available
-     * @param conference <tt>true</tt> to dedicate the new instance to a
-     * telephony conferencing user interface; otherwise, <tt>false</tt>
+     *                         video is available
+     * @param conference       <tt>true</tt> to dedicate the new instance to a
+     *                         telephony conferencing user interface; otherwise, <tt>false</tt>
      */
-    public VideoContainer(Component noVideoComponent, boolean conference)
-    {
+    public VideoContainer(Component noVideoComponent, boolean conference) {
         setLayout(new VideoLayout(conference));
 
         this.noVideoComponent = noVideoComponent;
@@ -101,15 +97,12 @@ public class VideoContainer
             setBackground(DEFAULT_BACKGROUND_COLOR);
 
         addContainerListener(
-                new ContainerListener()
-                {
-                    public void componentAdded(ContainerEvent ev)
-                    {
+                new ContainerListener() {
+                    public void componentAdded(ContainerEvent ev) {
                         VideoContainer.this.onContainerEvent(ev);
                     }
 
-                    public void componentRemoved(ContainerEvent ev)
-                    {
+                    public void componentRemoved(ContainerEvent ev) {
                         VideoContainer.this.onContainerEvent(ev);
                     }
                 });
@@ -126,22 +119,19 @@ public class VideoContainer
      * @return the added component
      */
     @Override
-    public Component add(Component comp)
-    {
+    public Component add(Component comp) {
         add(comp, VideoLayout.CENTER_REMOTE);
         return comp;
     }
 
     @Override
-    public Component add(Component comp, int index)
-    {
+    public Component add(Component comp, int index) {
         add(comp, null, index);
         return comp;
     }
 
     @Override
-    public void add(Component comp, Object constraints)
-    {
+    public void add(Component comp, Object constraints) {
         add(comp, constraints, -1);
     }
 
@@ -149,64 +139,51 @@ public class VideoContainer
      * Overrides the default behavior of add in order to be sure to remove the
      * default "no video" component when a remote video component is added.
      *
-     * @param comp the component to add
+     * @param comp        the component to add
      * @param constraints
      * @param index
      */
     @Override
-    public void add(Component comp, Object constraints, int index)
-    {
+    public void add(Component comp, Object constraints, int index) {
         enterAddOrRemove();
-        try
-        {
+        try {
             if (VideoLayout.CENTER_REMOTE.equals(constraints)
                     && (noVideoComponent != null)
                     && !noVideoComponent.equals(comp)
-                || (comp.equals(noVideoComponent)
-                    && noVideoComponent.getParent() != null))
-            {
+                    || (comp.equals(noVideoComponent)
+                    && noVideoComponent.getParent() != null)) {
                 remove(noVideoComponent);
             }
 
             super.add(comp, constraints, index);
-        }
-        finally
-        {
+        } finally {
             exitAddOrRemove();
         }
     }
 
-    private void enterAddOrRemove()
-    {
-        synchronized (syncRoot)
-        {
+    private void enterAddOrRemove() {
+        synchronized (syncRoot) {
             if (inAddOrRemove == 0)
                 validateAndRepaint = false;
             inAddOrRemove++;
         }
     }
 
-    private void exitAddOrRemove()
-    {
-        synchronized (syncRoot)
-        {
+    private void exitAddOrRemove() {
+        synchronized (syncRoot) {
             inAddOrRemove--;
-            if (inAddOrRemove < 1)
-            {
+            if (inAddOrRemove < 1) {
                 inAddOrRemove = 0;
-                if (validateAndRepaint)
-                {
+                if (validateAndRepaint) {
                     validateAndRepaint = false;
 
-                    if (isDisplayable())
-                    {
+                    if (isDisplayable()) {
                         if (isValid())
                             doLayout();
                         else
                             validate();
                         repaint();
-                    }
-                    else
+                    } else
                         doLayout();
                 }
             }
@@ -218,27 +195,20 @@ public class VideoContainer
      * to or removed from this <tt>Container</tt>.
      *
      * @param ev a <tt>ContainerEvent</tt> which details the specifics of the
-     * notification such as the <tt>Component</tt> that has been added or
-     * removed
+     *           notification such as the <tt>Component</tt> that has been added or
+     *           removed
      */
-    private void onContainerEvent(ContainerEvent ev)
-    {
-        try
-        {
+    private void onContainerEvent(ContainerEvent ev) {
+        try {
             Component component = ev.getChild();
 
-            switch (ev.getID())
-            {
-            case ContainerEvent.COMPONENT_ADDED:
-                component.addPropertyChangeListener(
-                        PREFERRED_SIZE_PROPERTY_NAME,
-                        propertyChangeListener);
-                break;
-            case ContainerEvent.COMPONENT_REMOVED:
-                component.removePropertyChangeListener(
-                        PREFERRED_SIZE_PROPERTY_NAME,
-                        propertyChangeListener);
-                break;
+            switch (ev.getID()) {
+                case ContainerEvent.COMPONENT_ADDED:
+                    component.addPropertyChangeListener(PREFERRED_SIZE_PROPERTY_NAME, propertyChangeListener);
+                    break;
+                case ContainerEvent.COMPONENT_REMOVED:
+                    component.removePropertyChangeListener(PREFERRED_SIZE_PROPERTY_NAME, propertyChangeListener);
+                    break;
             }
 
             /*
@@ -246,24 +216,17 @@ public class VideoContainer
              * Component, make sure that its opaque property i.e. transparency
              * does not interfere with that display.
              */
-            if (DEFAULT_BACKGROUND_COLOR != null)
-            {
+            if (DEFAULT_BACKGROUND_COLOR != null) {
                 int componentCount = getComponentCount();
 
-                if ((componentCount == 1)
-                        && (getComponent(0)
-                                == VideoContainer.this.noVideoComponent))
-                {
+                if ((componentCount == 1) && (getComponent(0) == VideoContainer.this.noVideoComponent)) {
                     componentCount = 0;
                 }
 
                 setOpaque(componentCount > 0);
             }
-        }
-        finally
-        {
-            synchronized (syncRoot)
-            {
+        } finally {
+            synchronized (syncRoot) {
                 if (inAddOrRemove != 0)
                     validateAndRepaint = true;
             }
@@ -280,22 +243,19 @@ public class VideoContainer
      * question.
      *
      * @param ev a <tt>PropertyChangeEvent</tt> which details the specifics of
-     * the notification such as the name of the property whose value changed and
-     * the <tt>Component</tt> which fired the notification
+     *           the notification such as the name of the property whose value changed and
+     *           the <tt>Component</tt> which fired the notification
      */
-    private void propertyChange(PropertyChangeEvent ev)
-    {
+    private void propertyChange(PropertyChangeEvent ev) {
         if (PREFERRED_SIZE_PROPERTY_NAME.equals(ev.getPropertyName())
-                && SwingUtilities.isEventDispatchThread())
-        {
+                && SwingUtilities.isEventDispatchThread()) {
             /*
              * The goal is to invoke doLayout, repaint and/or validate. These
              * methods and the specifics with respect to avoiding unnecessary
              * calls to them are already dealt with by enterAddOrRemove,
              * exitAddOrRemove and validateAndRepaint.
              */
-            synchronized (syncRoot)
-            {
+            synchronized (syncRoot) {
                 enterAddOrRemove();
                 validateAndRepaint = true;
                 exitAddOrRemove();
@@ -310,23 +270,19 @@ public class VideoContainer
      * @param comp the component to remove
      */
     @Override
-    public void remove(Component comp)
-    {
+    public void remove(Component comp) {
         enterAddOrRemove();
-        try
-        {
+        try {
             super.remove(comp);
 
             Component[] components = getComponents();
             VideoLayout videoLayout = (VideoLayout) getLayout();
             boolean hasComponentsAtCenterRemote = false;
 
-            for (Component c : components)
-            {
+            for (Component c : components) {
                 if (!c.equals(noVideoComponent)
                         && VideoLayout.CENTER_REMOTE.equals(
-                                videoLayout.getComponentConstraints(c)))
-                {
+                        videoLayout.getComponentConstraints(c))) {
                     hasComponentsAtCenterRemote = true;
                     break;
                 }
@@ -334,13 +290,10 @@ public class VideoContainer
 
             if (!hasComponentsAtCenterRemote
                     && (noVideoComponent != null)
-                    && !noVideoComponent.equals(comp))
-            {
+                    && !noVideoComponent.equals(comp)) {
                 add(noVideoComponent, VideoLayout.CENTER_REMOTE);
             }
-        }
-        finally
-        {
+        } finally {
             exitAddOrRemove();
         }
     }
@@ -355,18 +308,14 @@ public class VideoContainer
      * event and will then try to remove the new Component.
      */
     @Override
-    public void removeAll()
-    {
+    public void removeAll() {
         enterAddOrRemove();
-        try
-        {
+        try {
             super.removeAll();
 
             if (noVideoComponent != null)
                 add(noVideoComponent, VideoLayout.CENTER_REMOTE);
-        }
-        finally
-        {
+        } finally {
             exitAddOrRemove();
         }
     }

@@ -22,19 +22,13 @@ import java.util.function.*;
 /**
  * @author George Politis
  */
-public abstract class RawPacketTransformation
-    implements Function<RawPacket, RawPacket>
-{
+public abstract class RawPacketTransformation implements Function<RawPacket, RawPacket> {
     /**
-     * An identity {@link RawPacketTransformation} that returns the original
-     * packet.
+     * An identity {@link RawPacketTransformation} that returns the original packet.
      */
-    public final static RawPacketTransformation identity
-        = new RawPacketTransformation()
-    {
+    public final static RawPacketTransformation identity = new RawPacketTransformation() {
         @Override
-        public RawPacket apply(RawPacket rawPacket)
-        {
+        public RawPacket apply(RawPacket rawPacket) {
             return rawPacket;
         }
     };

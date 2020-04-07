@@ -30,9 +30,7 @@ import javax.swing.*;
  *
  * @author Lyubomir Marinov
  */
-public class FitLayout
-    implements LayoutManager
-{
+public class FitLayout implements LayoutManager {
     /**
      * The default height and width to be used by <tt>FitLayout</tt> and its
      * extenders in order to avoid falling back to zero height and/or width.
@@ -43,24 +41,24 @@ public class FitLayout
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * Does nothing because this <tt>LayoutManager</tt> lays out only the first
      * <tt>Component</tt> of the parent <tt>Container</tt> and thus doesn't need
      * any <tt>String</tt> associations.
      */
-    public void addLayoutComponent(String name, Component comp) {}
+    public void addLayoutComponent(String name, Component comp) {
+    }
 
     /**
      * Gets the first <tt>Component</tt> of a specific <tt>Container</tt> if
      * there is such a <tt>Component</tt>.
      *
      * @param parent the <tt>Container</tt> to retrieve the first
-     * <tt>Component</tt> of
+     *               <tt>Component</tt> of
      * @return the first <tt>Component</tt> of a specific <tt>Container</tt> if
      * there is such a <tt>Component</tt>; otherwise, <tt>null</tt>
      */
-    protected Component getComponent(Container parent)
-    {
+    protected Component getComponent(Container parent) {
         Component[] components = parent.getComponents();
 
         return (components.length > 0) ? components[0] : null;
@@ -69,8 +67,7 @@ public class FitLayout
     protected void layoutComponent(
             Component component,
             Rectangle bounds,
-            float alignmentX, float alignmentY)
-    {
+            float alignmentX, float alignmentY) {
         Dimension size;
 
         /*
@@ -80,40 +77,32 @@ public class FitLayout
          * VideoContainers themselves and the videos get fitted in them.
          */
         if (((component instanceof JPanel)
-                    && !component.isOpaque()
-                    && (((Container) component).getComponentCount() > 1))
+                && !component.isOpaque()
+                && (((Container) component).getComponentCount() > 1))
                 || (component instanceof VideoContainer)
                 /*
                  * If the specified component does not have a preferredSize, we
                  * cannot know its aspect ratio and we are left with no choice
                  * but to stretch it within the complete bounds.
                  */
-                || ((size = component.getPreferredSize()) == null))
-        {
+                || ((size = component.getPreferredSize()) == null)) {
             size = bounds.getSize();
-        }
-        else
-        {
+        } else {
             boolean scale = false;
             double widthRatio;
             double heightRatio;
 
-            if ((size.width != bounds.width) && (size.width > 0))
-            {
+            if ((size.width != bounds.width) && (size.width > 0)) {
                 scale = true;
                 widthRatio = bounds.width / (double) size.width;
-            }
-            else
+            } else
                 widthRatio = 1;
-            if ((size.height != bounds.height) && (size.height > 0))
-            {
+            if ((size.height != bounds.height) && (size.height > 0)) {
                 scale = true;
                 heightRatio = bounds.height / (double) size.height;
-            }
-            else
+            } else
                 heightRatio = 1;
-            if (scale)
-            {
+            if (scale) {
                 double ratio = Math.min(widthRatio, heightRatio);
 
                 size.width = (int) (size.width * ratio);
@@ -122,8 +111,7 @@ public class FitLayout
         }
 
         // Respect the maximumSize of the component.
-        if (component.isMaximumSizeSet())
-        {
+        if (component.isMaximumSizeSet()) {
             Dimension maxSize = component.getMaximumSize();
 
             if (size.width > maxSize.width)
@@ -144,7 +132,7 @@ public class FitLayout
         component.setBounds(
                 bounds.x + Math.round((bounds.width - size.width) * alignmentX),
                 bounds.y
-                    + Math.round((bounds.height - size.height) * alignmentY),
+                        + Math.round((bounds.height - size.height) * alignmentY),
                 size.width,
                 size.height);
     }
@@ -154,17 +142,14 @@ public class FitLayout
      * of its parent Container in order to display the Component in its entirety
      * and then centers it within the display area of the parent.
      */
-    public void layoutContainer(Container parent)
-    {
+    public void layoutContainer(Container parent) {
         layoutContainer(parent, Component.CENTER_ALIGNMENT);
     }
 
-    protected void layoutContainer(Container parent, float componentAlignmentX)
-    {
+    protected void layoutContainer(Container parent, float componentAlignmentX) {
         Component component = getComponent(parent);
 
-        if (component != null)
-        {
+        if (component != null) {
             layoutComponent(
                     component,
                     new Rectangle(parent.getSize()),
@@ -177,44 +162,43 @@ public class FitLayout
      * specified parent Container, the minimum size of the Container is the
      * minimum size of the mentioned Component.
      */
-    public Dimension minimumLayoutSize(Container parent)
-    {
+    public Dimension minimumLayoutSize(Container parent) {
         Component component = getComponent(parent);
 
         return
-            (component != null)
-                ? component.getMinimumSize()
-                : new Dimension(
+                (component != null)
+                        ? component.getMinimumSize()
+                        : new Dimension(
                         DEFAULT_HEIGHT_OR_WIDTH,
                         DEFAULT_HEIGHT_OR_WIDTH);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * Since this <tt>LayoutManager</tt> lays out only the first
      * <tt>Component</tt> of the specified parent <tt>Container</tt>, the
      * preferred size of the <tt>Container</tt> is the preferred size of the
      * mentioned <tt>Component</tt>.
      */
-    public Dimension preferredLayoutSize(Container parent)
-    {
+    public Dimension preferredLayoutSize(Container parent) {
         Component component = getComponent(parent);
 
         return
-            (component != null)
-                ? component.getPreferredSize()
-                : new Dimension(
+                (component != null)
+                        ? component.getPreferredSize()
+                        : new Dimension(
                         DEFAULT_HEIGHT_OR_WIDTH,
                         DEFAULT_HEIGHT_OR_WIDTH);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * Does nothing because this <tt>LayoutManager</tt> lays out only the first
      * <tt>Component</tt> of the parent <tt>Container</tt> and thus doesn't need
      * any <tt>String</tt> associations.
      */
-    public void removeLayoutComponent(Component comp) {}
+    public void removeLayoutComponent(Component comp) {
+    }
 }

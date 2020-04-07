@@ -23,9 +23,7 @@ import java.awt.*;
  *
  * @author Lyubomir Marinov
  */
-public class SizeChangeVideoEvent
-    extends VideoEvent
-{
+public class SizeChangeVideoEvent extends VideoEvent {
     /**
      * Serial version UID.
      */
@@ -52,21 +50,20 @@ public class SizeChangeVideoEvent
      * an update to the size of a specific visual <tt>Component</tt> depicting
      * video.
      *
-     * @param source the source of the new <tt>SizeChangeVideoEvent</tt>
+     * @param source          the source of the new <tt>SizeChangeVideoEvent</tt>
      * @param visualComponent the visual <tt>Component</tt> depicting video
-     * with the updated size
-     * @param origin the origin of the video the new
-     * <tt>SizeChangeVideoEvent</tt> is to notify about
-     * @param width the new width of <tt>visualComponent</tt>
-     * @param height the new height of <tt>visualComponent</tt>
+     *                        with the updated size
+     * @param origin          the origin of the video the new
+     *                        <tt>SizeChangeVideoEvent</tt> is to notify about
+     * @param width           the new width of <tt>visualComponent</tt>
+     * @param height          the new height of <tt>visualComponent</tt>
      */
     public SizeChangeVideoEvent(
             Object source,
             Component visualComponent,
             int origin,
             int width,
-            int height)
-    {
+            int height) {
         super(source, VIDEO_SIZE_CHANGE, visualComponent, origin);
 
         this.width = width;
@@ -75,19 +72,18 @@ public class SizeChangeVideoEvent
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * Makes sure that the cloning of this instance initializes a new
      * <tt>SizeChangeVideoEvent</tt> instance.
      */
     @Override
-    public VideoEvent clone(Object source)
-    {
+    public VideoEvent clone(Object source) {
         return
-            new SizeChangeVideoEvent(
-                    source,
-                    getVisualComponent(),
-                    getOrigin(),
-                    getWidth(), getHeight());
+                new SizeChangeVideoEvent(
+                        source,
+                        getVisualComponent(),
+                        getOrigin(),
+                        getWidth(), getHeight());
     }
 
     /**
@@ -95,8 +91,7 @@ public class SizeChangeVideoEvent
      *
      * @return the new height of the associated visual <tt>Component</tt>
      */
-    public int getHeight()
-    {
+    public int getHeight() {
         return height;
     }
 
@@ -105,8 +100,7 @@ public class SizeChangeVideoEvent
      *
      * @return the new width of the associated visual <tt>Component</tt>
      */
-    public int getWidth()
-    {
+    public int getWidth() {
         return width;
     }
 }

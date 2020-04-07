@@ -50,8 +50,7 @@ import org.jitsi.utils.logging.*;
  *
  * @author Lyubomir Marinov
  */
-public abstract class LibJitsi
-{
+public abstract class LibJitsi {
     /**
      * The <tt>Logger</tt> used by the <tt>LibJitsi</tt> class for logging
      * output.
@@ -74,8 +73,7 @@ public abstract class LibJitsi
      * or <tt>null</tt> if no <tt>AudioNotifierService</tt> instance is known to
      * the library
      */
-    public static AudioNotifierService getAudioNotifierService()
-    {
+    public static AudioNotifierService getAudioNotifierService() {
         return invokeGetServiceOnImpl(AudioNotifierService.class);
     }
 
@@ -89,8 +87,7 @@ public abstract class LibJitsi
      * or <tt>null</tt> if no <tt>ConfigurationService</tt> instance is known to
      * the library
      */
-    public static ConfigurationService getConfigurationService()
-    {
+    public static ConfigurationService getConfigurationService() {
         return invokeGetServiceOnImpl(ConfigurationService.class);
     }
 
@@ -104,8 +101,7 @@ public abstract class LibJitsi
      * <tt>null</tt> if no <tt>FileAccessService</tt> instance is known to the
      * library
      */
-    public static FileAccessService getFileAccessService()
-    {
+    public static FileAccessService getFileAccessService() {
         return invokeGetServiceOnImpl(FileAccessService.class);
     }
 
@@ -119,8 +115,7 @@ public abstract class LibJitsi
      * <tt>null</tt> if no <tt>MediaService</tt> instance is known to the
      * library
      */
-    public static MediaService getMediaService()
-    {
+    public static MediaService getMediaService() {
         return invokeGetServiceOnImpl(MediaService.class);
     }
 
@@ -134,8 +129,7 @@ public abstract class LibJitsi
      * or <tt>null</tt> if no <tt>PacketLoggingService</tt> instance is known to
      * the library
      */
-    public static PacketLoggingService getPacketLoggingService()
-    {
+    public static PacketLoggingService getPacketLoggingService() {
         return invokeGetServiceOnImpl(PacketLoggingService.class);
     }
 
@@ -149,8 +143,7 @@ public abstract class LibJitsi
      * library or <tt>null</tt> if no <tt>ResourceManagementService</tt>
      * instance is known to the library
      */
-    public static ResourceManagementService getResourceManagementService()
-    {
+    public static ResourceManagementService getResourceManagementService() {
         return invokeGetServiceOnImpl(ResourceManagementService.class);
     }
 
@@ -162,8 +155,7 @@ public abstract class LibJitsi
      * with the library
      * @throws IllegalStateException if the library is not currently initialized
      */
-    private static <T> T invokeGetServiceOnImpl(Class<T> serviceClass)
-    {
+    private static <T> T invokeGetServiceOnImpl(Class<T> serviceClass) {
         LibJitsi impl = LibJitsi.impl;
 
         if (impl == null)
@@ -175,8 +167,7 @@ public abstract class LibJitsi
     /**
      * Starts/initializes the use of the <tt>libjitsi</tt> library.
      */
-    public static void start()
-    {
+    public static void start() {
         start(null);
     }
 
@@ -184,85 +175,59 @@ public abstract class LibJitsi
      * Starts/initializes the use of the <tt>libjitsi</tt> library.
      *
      * @param context an <tt>Object</tt>, if any, which represents a context in
-     * which the <tt>libjitsi</tt> library is being started and is to be
-     * executed. If non-<tt>null</tt>, a <tt>LibJitsi</tt> implementation which
-     * accepts it will be used. For example, <tt>BundleContext</tt> may be
-     * specified in which case an OSGi-aware <tt>LibJitsi</tt> implementation
-     * will be used.
+     *                which the <tt>libjitsi</tt> library is being started and is to be
+     *                executed. If non-<tt>null</tt>, a <tt>LibJitsi</tt> implementation which
+     *                accepts it will be used. For example, <tt>BundleContext</tt> may be
+     *                specified in which case an OSGi-aware <tt>LibJitsi</tt> implementation
+     *                will be used.
      */
-    static void start(Object context)
-    {
-        if (null != LibJitsi.impl)
-        {
-            if (logger.isInfoEnabled())
-            {
+    static void start(Object context) {
+        if (null != LibJitsi.impl) {
+            if (logger.isInfoEnabled()) {
                 logger.info("LibJitsi already started, using as " +
                         "implementation: " + impl.getClass().getCanonicalName());
             }
-            
             return;
         }
-        
+
         /*
          * LibJitsi implements multiple backends and tries to choose the most
          * appropriate at run time. For example, an OSGi-aware backend is used
          * if it is detected that an OSGi implementation is available.
          */
-        String implBaseClassName
-            = LibJitsi.class.getName().replace(".service.", ".impl.");
-        String[] implClassNameExtensions
-            = new String[] { "OSGi", "" };
+        String implBaseClassName = LibJitsi.class.getName().replace(".service.", ".impl.");
+        String[] implClassNameExtensions = new String[]{"OSGi", ""};
         LibJitsi impl = null;
 
-        for (int i = 0; i < implClassNameExtensions.length; i++)
-        {
+        for (int i = 0; i < implClassNameExtensions.length; i++) {
             Class<?> implClass = null;
-            String implClassName
-                = implBaseClassName + implClassNameExtensions[i] + "Impl";
+            String implClassName = implBaseClassName + implClassNameExtensions[i] + "Impl";
             Throwable exception = null;
 
-            try
-            {
+            try {
                 implClass = Class.forName(implClassName);
-            }
-            catch (ClassNotFoundException cnfe)
-            {
+            } catch (ClassNotFoundException cnfe) {
                 exception = cnfe;
-            }
-            catch (ExceptionInInitializerError eiie)
-            {
+            } catch (ExceptionInInitializerError eiie) {
                 exception = eiie;
-            }
-            catch (LinkageError le)
-            {
+            } catch (LinkageError le) {
                 exception = le;
             }
-            if ((implClass != null)
-                    && LibJitsi.class.isAssignableFrom(implClass))
-            {
-                try
-                {
-                    if (context == null)
-                    {
+            if ((implClass != null) && LibJitsi.class.isAssignableFrom(implClass)) {
+                try {
+                    if (context == null) {
                         impl = (LibJitsi) implClass.newInstance();
-                    }
-                    else
-                    {
+                    } else {
                         /*
                          * Try to find a Constructor which will accept the
                          * specified context.
                          */
                         Constructor<?> constructor = null;
 
-                        for (Constructor<?> aConstructor
-                                : implClass.getConstructors())
-                        {
-                            Class<?>[] parameterTypes
-                                = aConstructor.getParameterTypes();
+                        for (Constructor<?> aConstructor : implClass.getConstructors()) {
+                            Class<?>[] parameterTypes = aConstructor.getParameterTypes();
 
-                            if ((parameterTypes.length == 1)
-                                    && parameterTypes[0].isInstance(context))
-                            {
+                            if ((parameterTypes.length == 1) && parameterTypes[0].isInstance(context)) {
                                 constructor = aConstructor;
                                 break;
                             }
@@ -270,9 +235,7 @@ public abstract class LibJitsi
 
                         impl = (LibJitsi) constructor.newInstance(context);
                     }
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     if (t instanceof ThreadDeath)
                         throw (ThreadDeath) t;
                     else
@@ -282,8 +245,7 @@ public abstract class LibJitsi
                     break;
             }
 
-            if ((exception != null) && logger.isInfoEnabled())
-            {
+            if ((exception != null) && logger.isInfoEnabled()) {
                 StringBuilder message = new StringBuilder();
 
                 message.append("Failed to initialize LibJitsi backend ");
@@ -298,12 +260,10 @@ public abstract class LibJitsi
 
         if (impl == null)
             throw new IllegalStateException("impl");
-        else
-        {
+        else {
             LibJitsi.impl = impl;
 
-            if (logger.isInfoEnabled())
-            {
+            if (logger.isInfoEnabled()) {
                 logger.info("Successfully started LibJitsi using as " +
                         "implementation: " + impl.getClass().getCanonicalName());
             }
@@ -313,16 +273,14 @@ public abstract class LibJitsi
     /**
      * Stops/uninitializes the use of the <tt>libjitsi</tt> library.
      */
-    public static void stop()
-    {
+    public static void stop() {
         impl = null;
     }
 
     /**
      * Initializes a new <tt>LibJitsi</tt> instance.
      */
-    protected LibJitsi()
-    {
+    protected LibJitsi() {
     }
 
     /**

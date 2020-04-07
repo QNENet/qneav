@@ -21,6 +21,7 @@ import org.osgi.framework.*;
  * Activates libjitsi in an OSGi environment.
  */
 public class LibJitsiActivator implements BundleActivator {
+
     public void start(BundleContext bundleContext) throws Exception {
         LibJitsi.start(bundleContext);
     }
