@@ -19,11 +19,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import org.jitsi.service.libjitsi.*;
+import org.jitsi.service.libjitsi.LibJitsi;
 import org.jitsi.service.neomedia.*;
-import org.jitsi.service.neomedia.device.*;
-import org.jitsi.service.neomedia.format.*;
-import org.jitsi.utils.*;
+import org.jitsi.service.neomedia.device.MediaDevice;
+import org.jitsi.service.neomedia.format.MediaFormat;
+import org.jitsi.service.neomedia.format.MediaFormatFactory;
+import org.jitsi.utils.MediaType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;

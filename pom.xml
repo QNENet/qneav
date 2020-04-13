@@ -9,9 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>libjitsi</module>
         <module>qavreceivetransmit</module>
         <module>qavailablemediadevices</module>
+        <module>qavfeatures</module>
     </modules>
 
     <name>QNEAV</name>

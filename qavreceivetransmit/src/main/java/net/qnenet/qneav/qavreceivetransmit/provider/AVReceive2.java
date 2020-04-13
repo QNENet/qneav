@@ -15,17 +15,25 @@
  */
 package net.qnenet.qneav.qavreceivetransmit.provider;
 
-import org.jitsi.service.libjitsi.*;
+//
+//import java.io.PrintStream;
+//import java.net.DatagramSocket;
+//import java.net.InetAddress;
+//import java.net.InetSocketAddress;
+//import java.util.List;
+//import java.util.Map;
+
+import org.jitsi.service.libjitsi.LibJitsi;
 import org.jitsi.service.neomedia.*;
-import org.jitsi.service.neomedia.device.*;
-import org.jitsi.service.neomedia.format.*;
-import org.jitsi.utils.*;
+import org.jitsi.service.neomedia.device.MediaDevice;
+import org.jitsi.service.neomedia.format.MediaFormat;
+import org.jitsi.service.neomedia.format.MediaFormatFactory;
+import org.jitsi.utils.MediaType;
 
 import java.io.PrintStream;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.List;
 import java.util.Map;
 
 /**
