@@ -57,12 +57,6 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>
-                            net.qnenet.qneav.qavreceivetransmit.api*;version=${project.version}
-                        </Export-Package>
-                        <Private-Package>
-                            net.qnenet.qneav.qavreceivetransmit.provider*;version=${project.version}
-                        </Private-Package>
                         <Import-Package>
                             *
                         </Import-Package>
