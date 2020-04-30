@@ -6,51 +6,24 @@
 
     <feature name='qneav' description='QNEAV Features' version='${project.version}'>
         <details>QNE Audio Visual Features</details>
+        <feature>scr</feature>
 
         <bundle>mvn:ch.imvs/sdes4j/1.1.3</bundle>
+        <bundle>mvn:net.java.dev.jna/jna/4.1.0</bundle>
+        <bundle>mvn:commons-codec/commons-codec/1.14</bundle>
+        <bundle>mvn:com.google.guava/guava/20.0</bundle>
+        <bundle>mvn:com.googlecode.json-simple/json-simple/1.1.1</bundle>
 
         <bundle>mvn:org.jitsi/bccontrib/1.0</bundle>
-
         <bundle>mvn:org.jitsi/fmj/1.0-SNAPSHOT</bundle>
-
-        <bundle>mvn:net.java.dev.jna/jna/4.1.0</bundle>
-
-        <bundle>mvn:commons-codec/commons-codec/1.14</bundle>
-
         <bundle>mvn:org.jitsi/libjitsi/${project.version}</bundle>
-
-        <bundle>mvn:org.jitsi/jain-sip-ri-ossonly/1.2.98c7f8c-jitsi-oss1</bundle>
-
-        <bundle>mvn:org.jitsi/zrtp4j-light/4.1.0-jitsi-1-SNAPSHOT</bundle>
-
+<!--        <bundle>mvn:org.jitsi/jain-sip-ri-ossonly/1.2.98c7f8c-jitsi-oss1</bundle>-->
+        <bundle>mvn:org.jitsi/zrtp4j-light/4.1.0-jitsi-1-20190327.161225-1</bundle>
         <bundle>mvn:org.jitsi/jitsi-lgpl-dependencies/1.2-1-gfc49658</bundle>
-<!--        org/jitsi/jitsi-lgpl-dependencies/1.2-1-gfc49658-->
+        <bundle>mvn:org.jitsi/jitsi-utils/1.0-39-gd481c98</bundle>
 
-
-        <!--        <bundle>mvn:org.jitsi/jitsi-utils/1.0-39-gd481c98</bundle>-->
-
-        <!--        <groupId>${project.groupId}</groupId>-->
-        <!--        <artifactId>jitsi-utils</artifactId>-->
-        <!--        <version>1.0-39-gd481c98</version>-->
-
-        <!--        org/jitsi/jitsi-utils/1.0-39-gd481c98-->
-        <!--&lt;!&ndash;                    org/jitsi/jain-sip-ri-ossonly/1.2.98c7f8c-jitsi-oss1&ndash;&gt;-->
-
-        <!--        <bundle>mvn:org/jitsi/jitsi-lgpl-dependencies/1.2-1-gfc49658</bundle>-->
-        <!--                        org/jitsi/jitsi-lgpl-dependencies/1.2-1-gfc49658-->
-
-        <!--        <groupId>${project.groupId}</groupId>-->
-        <!--        <artifactId>jitsi-lgpl-dependencies</artifactId>-->
-        <!--        <optional>true</optional>-->
-        <!--        <version>1.2-1-gfc49658</version>-->
-
-        <!--        bccontrib-1.0.jar-->
-        <!--        fmj-1.0-20190327.151046-25.jar-->
-        <!--        jain-sip-ri-ossonly-1.2.98c7f8c-jitsi-oss1.jar-->
-        <!--        jitsi-lgpl-dependencies-1.2-1-gfc49658.jar-->
-        <!--        /home/paulf/.m2/repository/org/jitsi/jitsi-utils/1.0-39-gd481c98/jitsi-utils-1.0-39-gd481c98.jar-->
-        <!--        /home/paulf/.m2/repository/org/jitsi/zrtp4j-light/4.1.0-jitsi-1-SNAPSHOT/zrtp4j-light-4.1.0-jitsi-1-20190327.161225-1.jar-->
-
+        <bundle>mvn:org.bouncycastle/bcpkix-jdk15on/1.54</bundle>>
+        <bundle>mvn:org.bouncycastle/bcprov-jdk15on/1.54</bundle>>
 
         <bundle>mvn:net.qnenet.qneav/qavailablemediadevices/${project.version}</bundle>
         <bundle>mvn:net.qnenet.qneav/qavreceivetransmit/${project.version}</bundle>
